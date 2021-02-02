@@ -18,13 +18,20 @@ function About({views, createdAt, upvotes, downvotes, comments}) {
     //console.log(upvotes)
     const[upvote, setUpvotes] = useState(upvotes);
     const[downvote, setDownvotes] = useState(downvotes);
+    const[hidden, setHidden] = useState(false);
    // console.log(upvote)
 
-    function handleUpvotes (){
+    function handleUpvotes (e){
        setUpvotes(upvote + 1)
     }
-    function handleDownvotes (){
+    function handleDownvotes (e){
        setDownvotes(downvote + 1)
+    }
+
+    function handleHidden(e){
+        if(hidden) {e.target.textContent = "Hide Comments"}
+        else{e.target.textContent = "Show Comments"}
+        setHidden(hidden => !hidden)
     }
     
     return(
@@ -32,13 +39,13 @@ function About({views, createdAt, upvotes, downvotes, comments}) {
         <p>{views} Views | Uploaded {createdAt}</p> 
         <p> <button onClick={handleUpvotes}>{upvote}👍</button>
         <button onClick={handleDownvotes}>{downvote}👎</button></p>
-        <button>Hide Comments</button>
+        <button onClick={handleHidden}>Hide Comments</button>
         
 
-        <div>
+        { hidden ? null: <div>
             <h2>{comments.length} comments</h2>
             {info}
-        </div>
+                </div>}
     </div>
     )
 }
